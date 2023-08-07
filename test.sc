@@ -13,7 +13,7 @@ solutionSet.toList
 val builder = new StringBuilder()
 builder.append("")
 
-//Priority Queue example in Scala
+//Priority datastructures.Queue example in Scala
 
 import scala.collection.mutable.PriorityQueue
 import scala.math.Ordering.Implicits._
@@ -69,7 +69,7 @@ s"Foo $a?"
 "Foo" + a + "?"
 //println("Foo" _ a _ "?")
 
-val foo = Array(1,2,3,4,5,6,7)
+val foo = Array(1, 2, 3, 4, 5, 6, 7)
 foo(2)
 
 //myfnc: ()Unit
@@ -79,3 +79,56 @@ foo.foreach(println _)
 val c = Map(1 -> "A")
 
 c get 3
+
+assert(List(1, 2, 3, 4, 5).scanLeft(0)(_ + _) == List(0, 1, 3, 6, 10, 15))
+
+assert(List(1, 2, 3, 4, 5).scanRight(0)(_ + _) == List(15, 14, 12, 9, 5, 0))
+
+"ACB".sorted
+
+val factor = Math.pow(10, 4)
+val fin = (Math.round(factor * result) / factor)
+fin
+
+import scala.collection.IndexedSeqView
+
+def filterByPredicates[A](xs: IndexedSeqView[A], predicates: List[A => Boolean]): List[List[A]] = {
+  xs.foldLeft(List.fill(predicates.size)(List.empty[A]))((acc, element) => {
+    acc.zip(predicates).map({
+      case (list, predicate) => if (predicate(element)) element :: list else list
+    })
+  })
+}
+
+val xs0 = Array(1, 0, -1, 2, 3, 4, 5, -6, 5, 0)
+
+val xs = xs0.view.map(x => {
+  println(s"accessing $x")
+  x
+})
+
+val xs1 = xs0.map(x => {
+  println(s"accessing $x")
+  x
+})
+//val x = Array(1,2,3)
+val positives: Int => Boolean = _ > 0
+val negatives: Int => Boolean = _ < 0
+val zeros: Int => Boolean = _ == 0
+val preds = List(positives, negatives, zeros)
+//val res = preds.map(xs.filter)
+//println(res)
+println("---------------")
+val elementSizes = filterByPredicates(xs0.view, preds).map(_.size)
+val proportions = elementSizes.map(_.toDouble / xs0.size.toDouble)
+proportions.foreach(res => println(f"$res%1.5f"))
+
+
+val arr = Array(1, 2, 3)
+arr(2) = 100
+arr
+
+val a = List(1, 2, 3, 4)
+a.updated(2, 10)
+a.head
+a.tail
