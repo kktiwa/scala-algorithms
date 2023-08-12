@@ -2,11 +2,11 @@ package algorithms
 
 object LongestPrefix extends App {
 
-  private val inputArray = Array("cir", "car")
+  private val inputArray = Array("camera", "camel")
   print(s"Prefix value", longestCommonPrefix(inputArray))
 
   def longestCommonPrefix(strs: Array[String]): String = {
-    strs.foldLeft("")((_, _) =>
+    strs.foldLeft("") { (_, _) =>
       //take the smallest and longest array lengths
       (strs.min, strs.max)
         .zipped
@@ -16,6 +16,6 @@ object LongestPrefix extends App {
         .unzip._1
         //convert it to strings
         .mkString
-    )
+    }
   }
 }

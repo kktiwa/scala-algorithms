@@ -12,8 +12,10 @@ object ReverseArray extends App {
     else rotate(A.toList, K).toArray
   }
 
-  //Prepend the last element before the remaining array
-  def rotateStepwise(l: List[Int]) = {
+  //Prepend the last element before the remaining (all - last) array
+  //scala> val y = 2 +: x
+  //y: List[Int] = List(2, 1)
+  def rotateStepwise(l: List[Int]): List[Int] = {
     l.take(l.size - 1).+:(l.last)
   }
 
