@@ -16,10 +16,18 @@ object StockTicking extends App {
 
   def stockTickVolume(stockTickTrade: StockTickTrade) = stockTickTrade.volume
 
+  //To store items and deque based on priority
   val stockTickTradeItems = mutable.PriorityQueue[StockTickTrade]()(Ordering.by(stockTickVolume))
+  //To store updated values of same keys
+  val tickerMap = mutable.Map[String, StockTickTrade]()
 
   def executeTrade(stockSymbol: String, volume: Int) = {
-    stockTickTradeItems.enqueue(StockTickTrade(stockSymbol, volume))
+    val addOrUpdateItem = tickerMap.get(stockSymbol) match {
+      case Some(x) => x.copy(stockSymbol, volume + x.volume)
+      case None => StockTickTrade(stockSymbol, volume)
+    }
+    tickerMap.update(stockSymbol, addOrUpdateItem)
+    stockTickTradeItems.enqueue(addOrUpdateItem)
   }
 
   def topKStocks(k: Int): mutable.Seq[String] = {

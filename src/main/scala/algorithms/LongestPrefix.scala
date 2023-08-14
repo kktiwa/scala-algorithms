@@ -2,14 +2,20 @@ package algorithms
 
 object LongestPrefix extends App {
 
-  private val inputArray = Array("camera", "camel")
+  private val inputArray = Array("cap", "camera", "camel", "cambodia")
   print(s"Prefix value", longestCommonPrefix(inputArray))
 
+  /**
+   * lazyZip allows strict operations to be performed on the lazily evaluated pairs or
+   * chained calls. Implicit conversion to Iterable[(A, B)] is also supported.
+   *
+   * @param strs
+   * @return
+   */
   def longestCommonPrefix(strs: Array[String]): String = {
     strs.foldLeft("") { (_, _) =>
-      //take the smallest and longest array lengths
-      (strs.min, strs.max)
-        .zipped
+      //take the shortest string and longest string
+      strs.min.lazyZip(strs.max)
         //compare each character and accept until they don't match
         .takeWhile(v => v._1 == v._2)
         //unzip any of the 2 zipped lists of common chars
